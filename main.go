@@ -5,7 +5,7 @@ import (
 	"github.com/hu17889/go_spider/core/pipeline"
 	"github.com/hu17889/go_spider/core/scheduler"
 	"github.com/hu17889/go_spider/core/spider"
-	"plant"
+	"plant_spider/plant"
 	"regexp"
 	"strings"
 )
