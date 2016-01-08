@@ -2,10 +2,10 @@ package plant
 
 import (
 	"fmt"
-	"github.com/PuerkitoBio/goquery"
-	"github.com/hu17889/go_spider/core/common/page"
 	"regexp"
 	"strings"
+
+	"github.com/hu17889/go_spider/core/common/page"
 )
 
 type PlantProcesser struct {
@@ -15,7 +15,7 @@ func NewPlantProcesser() *PlantProcesser {
 	return &PlantProcesser{}
 }
 
-const BaikeUrlReg = regexp.MustCompile(`^http://baike\.baidu\.com/view/.*?`)
+var BaikeUrlReg = regexp.MustCompile(`^http://baike\.baidu\.com/view/.*?`)
 
 func (this *PlantProcesser) Process(p *page.Page) {
 	if !p.IsSucc() {
@@ -34,11 +34,10 @@ func (this *PlantProcesser) Process(p *page.Page) {
 	summary := query.Find(".lemma-summary .para").Text()
 	summary = strings.Trim(summary, " \t\n")
 	p.AddField("summary", summary)
-
 	query.Find("a").Each(func(i int, s *goquery.Selection) {
 		url, isExist := s.Attr("href")
 		if isExist {
-			if baikeUrlReg.MatchString(url) {
+			if BaikeUrlReg.MatchString(url) {
 				urls = append(urls, url)
 			}
 		}

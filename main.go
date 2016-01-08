@@ -1,13 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"github.com/hu17889/go_spider/core/pipeline"
 	"github.com/hu17889/go_spider/core/scheduler"
 	"github.com/hu17889/go_spider/core/spider"
-	"plant_spider/plant"
-	"regexp"
-	"strings"
+	"plant-spider/plant"
 )
 
 func main() {
