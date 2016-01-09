@@ -8,10 +8,10 @@ import (
 )
 
 func main() {
-	var startUrl = "http://baike.baidu.com/view/39352.htm"
+	var startUrl = "http://baike.baidu.com/subview/412610/19548276.htm"
 	sp := spider.NewSpider(plant.NewPlantProcesser(), "TaskName").
 		SetScheduler(scheduler.NewQueueScheduler(true)).
-		AddPipeline(pipeline.NewPipelineFile("result.txt"))
+		AddPipeline(pipeline.NewPipelineFile("plants.txt"))
 	sp.AddUrl(startUrl, "html")
 	sp.Run()
 }
