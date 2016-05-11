@@ -17,7 +17,7 @@ func NewPlantProcesser() *PlantProcesser {
 }
 
 var urlCache = NewUrlCache()
-var BaikeUrlReg = regexp.MustCompile(`^http://baike\.baidu\.com/view/.*?`)
+var BaikeUrlReg = regexp.MustCompile(`view/.*?`)
 
 func (this *PlantProcesser) getUrls(query *goquery.Document) (urls []string) {
 	query.Find("a").Each(func(i int, s *goquery.Selection) {
@@ -28,6 +28,9 @@ func (this *PlantProcesser) getUrls(query *goquery.Document) (urls []string) {
 				url = url[:ex]
 			}
 			if BaikeUrlReg.MatchString(url) {
+				if !strings.HasPrefix(url, "http://") {
+					url = "http://baike.baidu.com" + url
+				}
 				if urlCache.Set(url) {
 					urls = append(urls, url)
 				}
@@ -73,7 +76,6 @@ func (this *PlantProcesser) Process(p *page.Page) {
 		println(p.Errormsg())
 		return
 	}
-
 	query := p.GetHtmlParser()
 
 	if !this.isPlant(query, p) {
